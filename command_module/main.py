@@ -1,13 +1,31 @@
+import os
+
 from aiogram.types import Message, ReplyKeyboardRemove
 
 from data.Bot_data.loader_unit import dp
 from data.Bot_data.botdatabase import Botdatabase
+from data.user_data.database import GettingInfoFromUsers, InsertingInfoIntoUsers
 from .buttons import Buttons
 
+BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
-# START начало бота
+
 @dp.message_handler(commands=['start'])
 async def command_start(message: Message):
+    """
+    START начало бота
+    Проверка пользователя на наличие в базе данных
+    :param message:
+    :return:
+    """
+    user_id = message.from_user.id
+    checking_is_user_in_database = GettingInfoFromUsers().get_all_information_by_message_id(user_id=user_id)
+
+    InsertingInfoIntoUsers().all_starts_of_users(message=message)
+
+    if not checking_is_user_in_database:
+        InsertingInfoIntoUsers().inserting_new_unique_users(message=message)
+
     with open('D:\Python\inha_score\data\Bot_data\Image\Welcome.jpg', mode='rb') as img:
         await message.answer_photo(img, parse_mode='HTML',
                                    caption='Выберите свой факультет! (обращайтесь создателю через /report)',

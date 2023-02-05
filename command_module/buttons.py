@@ -3,11 +3,13 @@ import sqlite3
 
 report_index = 0
 
+
 class Buttons:
     """
     Класс кнопок для факультетов SOCIE, SOL, SBL также FAQ
     где пользователь может задать свой вопрос или выбрать вопрос
     """
+
     def __init__(self):
         self.markup = InlineKeyboardMarkup(row_width=3)
 
@@ -20,7 +22,6 @@ class Buttons:
         ]
 
         return self.markup.add(*btn)
-
 
 
 class Database:
