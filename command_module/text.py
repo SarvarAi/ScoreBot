@@ -1,6 +1,6 @@
 from aiogram.types import Message
-from . import default_structures as ds
-from data_module.Bot_data.loader_unit import dp
+from . import buttons as ds
+from data.Bot_data.loader_unit import dp
 
 @dp.message_handler(content_types=['text'])
 async def react_text(message: Message):

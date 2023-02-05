@@ -1,7 +1,7 @@
 from aiogram.types import Message
 from command_module.SOCIE import sociebtn
-from command_module import default_structures as ds
-from data_module.Bot_data.loader_unit import dp
+from command_module import buttons as ds
+from data.Bot_data.loader_unit import dp
 
 
 @dp.message_handler(regexp='🛠1 Курс 🧒')

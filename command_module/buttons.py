@@ -1,16 +1,26 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, Message
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, Message, InlineKeyboardMarkup, InlineKeyboardButton
 import sqlite3
 
 report_index = 0
 
-about = '''
-🧑‍🎓Этот бот был создан студентом ИНХА
-🥷Создатель желает остоваться анонимным
-📈Этот бот развивается день ото дня, добавляя новые функции
-📩Если вы хотите отправить сообщение создателю, выберите в меню /report
-📝Автор создал этого бота, чтобы помочь учащимся рассчитать баллы по любому предмету.
-🐍Бот написан на Python и на самом мощном библиотеке для телеграмма aiogram
-'''
+class Buttons:
+    """
+    Класс кнопок для факультетов SOCIE, SOL, SBL также FAQ
+    где пользователь может задать свой вопрос или выбрать вопрос
+    """
+    def __init__(self):
+        self.markup = InlineKeyboardMarkup(row_width=3)
+
+    def faculty_buttons(self):
+        btn = [
+            InlineKeyboardButton(text='🛠SOCIE', callback_data='socie'),
+            InlineKeyboardButton(text='🚫SBL', callback_data='sbl'),
+            InlineKeyboardButton(text='🚫SOL', callback_data='sol'),
+            InlineKeyboardButton(text='FAQ', callback_data='faq')
+        ]
+
+        return self.markup.add(*btn)
+
 
 
 class Database:
@@ -61,16 +71,6 @@ class Database:
         print(f'user_id: {user_id}, data_base: reports')
         database.commit()
         database.close()
-
-
-class Buttons:
-
-    def faculty(self):
-        markup = ReplyKeyboardMarkup(resize_keyboard=True)
-        socie = KeyboardButton('🛠SOCIE')
-        sbl = KeyboardButton('🚫SBL')
-        sol = KeyboardButton('🚫SOL')
-        return markup.add(socie, sbl, sol)
 
 
 class Messages:

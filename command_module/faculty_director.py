@@ -1,7 +1,7 @@
-from data_module.Bot_data.loader_unit import dp
+from data.Bot_data.loader_unit import dp
 from aiogram.types import Message
 from command_module.SOCIE import sociebtn
-from command_module import default_structures as ds
+from command_module import buttons as ds
 
 
 @dp.message_handler(regexp='🛠SOCIE')
