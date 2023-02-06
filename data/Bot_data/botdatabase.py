@@ -16,6 +16,11 @@ class Botdatabase:
         self.commit = self.database.commit
         self.close = self.database.close
 
+
+class CreatingTableBot(Botdatabase):
+    def __init__(self):
+        super().__init__()
+
     def create_table_about_bot(self):
         self.cursor.execute('''CREATE TABLE IF NOT EXISTS about_bot (
         message_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,12 +29,32 @@ class Botdatabase:
         );''')
         self.close()
 
+    def create_table_for_freq_questions(self):
+        self.cursor.execute('''
+        CREATE TABLE IF NOT EXISTS freq_questions (
+        question_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        question TEXT NOT NULL,
+        answer TEXT NOT NULL
+        );
+        ''')
+        self.close()
+
+
+class InsertingTableBot(Botdatabase):
+    def __init__(self):
+        super().__init__()
+
     def inserting_information(self, table_name, description, message):
         self.cursor.execute(f'''INSERT INTO {table_name} (description, message) VALUES 
         (?, ?);
         ''', (description, message))
         self.commit()
         self.close()
+
+
+class GettingTableBot(Botdatabase):
+    def __init__(self):
+        super().__init__()
 
     def get_message_by_description(self, table_name, description):
         self.cursor.execute(f'''SELECT message FROM {table_name}
@@ -38,5 +63,3 @@ class Botdatabase:
         self.close()
         return result[0]
 
-
-print()
