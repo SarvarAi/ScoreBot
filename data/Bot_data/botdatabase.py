@@ -51,6 +51,12 @@ class InsertingTableBot(Botdatabase):
         self.commit()
         self.close()
 
+    def inserting_information_for_freq_questions(self, question, answer):
+        self.cursor.execute(f'''INSERT INTO freq_questions (question, answer) VALUES 
+                (?, ?);''', (question, answer))
+        self.commit()
+        self.close()
+
 
 class GettingTableBot(Botdatabase):
     def __init__(self):
@@ -63,3 +69,6 @@ class GettingTableBot(Botdatabase):
         self.close()
         return result[0]
 
+
+# CreatingTableBot().create_table_for_freq_questions()
+# InsertingTableBot().inserting_information_for_freq_questions(question='Question1', answer='Answer1')

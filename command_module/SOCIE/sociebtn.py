@@ -1,40 +1,25 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
 
 
-class Buttons:
-    @staticmethod
-    def courses():
-        markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-        c1 = KeyboardButton('🛠1 Курс 🧒')
-        c2 = KeyboardButton('🚫2 Курс 👦')
-        c3 = KeyboardButton('🚫3 Курс 👨')
-        c4 = KeyboardButton('🚫4 Курс 👱‍♂')
+class SocieButtons:
+    """
+    Кнопки для курса SOCIE
+    """
 
-        return markup.add(c1, c2, c3, c4)
+    def __init__(self, row_width_inline=None, row_width_reply=None):
+        self.InMarkup = InlineKeyboardMarkup(row_width=row_width_inline)
+        self.ReMarkup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=row_width_reply)
+        self.buttons = []
 
-    @staticmethod
-    def course1_but():
-        markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-        ae = KeyboardButton('✅Academic English 1')
-        aer = KeyboardButton('✅Academic English Reading')
-        c1 = KeyboardButton('✅Calculus 1')
-        p1 = KeyboardButton('✅Physics 1')
-        pe1 = KeyboardButton('✅Physics Experiment 1')
-        intro = KeyboardButton('✅Introduction to IT')
-        oop1 = KeyboardButton('✅Object Oriented Programming 1')
+    def make_inline(self, btns):
 
-        return markup.add(ae, aer, c1, p1, pe1, intro, oop1)
+        for btn, data in btns.items():
+            self.buttons.append(InlineKeyboardButton(text=btn, callback_data=data))
 
-    @staticmethod
-    def start():
-        markup = ReplyKeyboardMarkup(resize_keyboard=True)
-        btn = KeyboardButton('Начать✍')
+        return self.InMarkup.add(*self.buttons)
 
-        return markup.add(btn)
+    def make_reply(self, btns):
+        for btn, data in btns.items():
+            self.buttons.append(KeyboardButton(text=btn))
 
-    @staticmethod
-    def show():
-        btn = ReplyKeyboardMarkup(resize_keyboard=True)
-        total = KeyboardButton(text='😳Показать')
-
-        return btn.add(total)
+        return self.ReMarkup.add(*self.buttons)
