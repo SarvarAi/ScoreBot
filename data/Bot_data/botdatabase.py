@@ -39,21 +39,33 @@ class CreatingTableBot(Botdatabase):
         ''')
         self.close()
 
+    def create_table_for_main_menu(self):
+        self.cursor.execute('''
+        CREATE TABLE IF NOT EXISTS main_menu (
+        main_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        description TEXT NOT NULL
+        );
+        ''')
+        self.commit()
+        self.close()
+
 
 class InsertingTableBot(Botdatabase):
     def __init__(self):
         super().__init__()
+        self.columns = []
+        self.information = []
+        self.secret = []
 
-    def inserting_information(self, table_name, description, message):
-        self.cursor.execute(f'''INSERT INTO {table_name} (description, message) VALUES 
-        (?, ?);
-        ''', (description, message))
-        self.commit()
-        self.close()
+    def insert(self, table, ins):
+        for k, v in ins.items():
+            self.columns.append(k)
+            self.secret.append('?')
+            self.information.append(v)
 
-    def inserting_information_for_freq_questions(self, question, answer):
-        self.cursor.execute(f'''INSERT INTO freq_questions (question, answer) VALUES 
-                (?, ?);''', (question, answer))
+        self.cursor.execute(f'''INSERT INTO {table} ({', '.join(self.columns)}) VALUES
+            ({', '.join(self.secret)})''', tuple(self.information))
+
         self.commit()
         self.close()
 
@@ -70,5 +82,12 @@ class GettingTableBot(Botdatabase):
         return result[0]
 
 
-# CreatingTableBot().create_table_for_freq_questions()
-# InsertingTableBot().inserting_information_for_freq_questions(question='Question1', answer='Answer1')
+create = CreatingTableBot()
+insert = InsertingTableBot()
+#
+# info = {
+#     'description': 'Выберите свой факультет!'
+# }
+#
+# insert.insert('main_menu', info)
+# create.create_table_for_main_menu()

@@ -15,10 +15,10 @@ class Buttons:
         self.buttons = []
 
     def make_inline(self, btns):
-
         for btn, data in btns.items():
             self.buttons.append(InlineKeyboardButton(text=btn, callback_data=data))
 
+        print(self.buttons)
         return self.InMarkup.add(*self.buttons)
 
     def make_reply(self, btns):
