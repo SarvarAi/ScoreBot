@@ -11,6 +11,15 @@ from .Report.report import report
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
+main = {
+    '🛠SOCIE': 'socie',
+    '🚫SBL': 'sbl',
+    '🚫SOL': 'sol',
+    'FAQ': 'faq',
+    '📒История': 'history'
+}
+
+
 @dp.message_handler(commands=['start'])
 async def command_start(message: Message):
     """
@@ -30,7 +39,7 @@ async def command_start(message: Message):
     with open('D:\Python\inha_score\data\Bot_data\Image\Welcome.jpg', mode='rb') as img:
         await message.answer_photo(img,
                                    caption='Выберите свой факультет!',
-                                   reply_markup=Buttons().faculty_buttons())
+                                   reply_markup=Buttons(row_width_inline=3).make_inline(btns=main))
 
 
 # ABOUT Про бота

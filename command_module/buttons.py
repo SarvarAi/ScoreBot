@@ -6,36 +6,23 @@ report_index = 0
 
 class Buttons:
     """
-    Класс кнопок для факультетов SOCIE, SOL, SBL также FAQ
-    где пользователь может задать свой вопрос или выбрать вопрос
+    Кнопки для курса
     """
 
-    def __init__(self):
-        self.markup = InlineKeyboardMarkup(row_width=3)
+    def __init__(self, row_width_inline=None, row_width_reply=None):
+        self.InMarkup = InlineKeyboardMarkup(row_width=row_width_inline)
+        self.ReMarkup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=row_width_reply)
+        self.buttons = []
 
-    def faculty_buttons(self):
-        btn = [
-            InlineKeyboardButton(text='🛠SOCIE', callback_data='socie'),
-            InlineKeyboardButton(text='🚫SBL', callback_data='sbl'),
-            InlineKeyboardButton(text='🚫SOL', callback_data='sol'),
-            InlineKeyboardButton(text='FAQ', callback_data='faq'),
-            InlineKeyboardButton(text='📒История', callback_data='history')
-        ]
+    def make_inline(self, btns):
 
-        return self.markup.add(*btn)
+        for btn, data in btns.items():
+            self.buttons.append(InlineKeyboardButton(text=btn, callback_data=data))
 
+        return self.InMarkup.add(*self.buttons)
 
-class Messages:
-    def __init__(self, message=None):
-        self.message = message
+    def make_reply(self, btns):
+        for btn, data in btns.items():
+            self.buttons.append(KeyboardButton(text=btn))
 
-    async def error_number(self):
-        return await self.message.reply('🚫Вы ввели неправильное число 😕Введите еще раз')
-
-    async def error_char(self):
-        return await self.message.reply('🚫Вы ввели нe корректно 😟Введите еще раз')
-
-    @staticmethod
-    async def not_ready(message: Message):
-        await message.answer(parse_mode='HTML', text=
-        f'Нам очень жаль, но пока что мы не дороботали <b>{message.text[1:]}</b> 😢, наши программисты на данный момент работают над этим🧑‍💻')
+        return self.ReMarkup.add(*self.buttons)
