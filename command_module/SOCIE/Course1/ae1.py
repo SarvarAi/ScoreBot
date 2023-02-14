@@ -1,30 +1,7 @@
 from data.Bot_data.loader_unit import dp
 from aiogram.types import Message, ReplyKeyboardRemove
-from command_module.buttons import Messages
-from command_module.SOCIE import sociebtn
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters.state import State, StatesGroup
 
-
-class Ae_mem(StatesGroup):
-    main = State()
-    attendance = State()
-    discussion = State()
-    quiz = State()
-    assignments = State()
-    midScore = State()
-    finScore = State()
-    total = State()
-
-
-@dp.message_handler(regexp='✅Academic English 1', state=None)
-async def sc1ae(message: Message):
-    await message.answer('Давайте рассчитаем ваш Total❗')
-    with open('D:\Python\inha_score\data_module\Bot_data\Image\SOCIE\Course1\AE1grade.png', mode='rb') as img:
-        await message.answer_photo(photo=img,
-                                   caption='Сейчас будем считать ваш балл по этой таблице давайте начнем\n♦Вводите все числа без знака процент (%)',
-                                   reply_markup=sociebtn.Buttons.start())
-    await Ae_mem.main.set()
 
 
 @dp.message_handler(state=Ae_mem.main)

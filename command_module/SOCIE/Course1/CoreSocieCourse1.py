@@ -3,6 +3,13 @@ from aiogram.types import CallbackQuery
 from data.Bot_data.loader_unit import dp, bot
 from command_module.buttons import Buttons
 
+semester = {
+    '1️⃣': 'semester_1_socie',
+    '2️⃣': 'semester_2_socie',
+    '🔙Назад': 'back_course'
+}
+
+
 choose = {
     'AE1': 'ae1',
     'AER': 'aer1',
@@ -11,7 +18,7 @@ choose = {
     'PE1': 'pe1',
     'IT': 'intro1',
     'OOP1': 'oop1',
-    '🔙': 'back_course'
+    '🔙': 'back_semester'
 }
 
 
@@ -24,4 +31,4 @@ async def core_socie_course_1(call: CallbackQuery):
         chat_id=chat_id,
         message_id=message_id,
         caption='Выберите предмет',
-        reply_markup=Buttons(row_width_inline=4).make_inline(btns=choose))
+        reply_markup=Buttons(row_width_inline=2).make_inline(btns=semester))

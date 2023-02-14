@@ -6,11 +6,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
-class Pe_mem(StatesGroup):
-    main = State()
-    attendance = State()
-    lab = State()
-    total = State()
+
 
 
 @dp.message_handler(regexp='✅Physics Experiment 1', state=None)

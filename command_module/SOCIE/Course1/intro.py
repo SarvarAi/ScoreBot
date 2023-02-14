@@ -6,14 +6,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
-class Intor_mem(StatesGroup):
-    main = State()
-    attendance = State()
-    assignments = State()
-    quiz = State()
-    midScore = State()
-    finScore = State()
-    total = State()
+
 
 
 @dp.message_handler(regexp='✅Introduction to IT')

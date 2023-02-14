@@ -6,12 +6,6 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
-class P1_mem(StatesGroup):
-    main = State()
-    hw_ass_att = State()
-    midScore = State()
-    finScore = State()
-    total = State()
 
 
 @dp.message_handler(regexp='✅Physics 1', state=None)

@@ -3,16 +3,10 @@ from aiogram.types import Message, ReplyKeyboardRemove
 from command_module.buttons import Messages
 from command_module.SOCIE import sociebtn
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
-class C1_memory(StatesGroup):
-    main = State()
-    attendance = State()
-    assignments = State()
-    midScore = State()
-    finScore = State()
-    total = State()
+
+
 
 
 @dp.message_handler(regexp='✅Calculus 1', state=None)
